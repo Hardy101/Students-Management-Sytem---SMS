@@ -16,25 +16,28 @@ if (isset($_POST['submit'])) {
     $row = mysqli_fetch_array($result);
 
     if ($row['acct_type'] == 'admin') {
+      $_SESSION['id'] = $row['id'];
       $_SESSION['email'] = $row['email_id'];
       $_SESSION['fname'] = $row['fname'];
       $_SESSION['lname'] = $row['lname'];
       $_SESSION['acct_type'] = $row['acct_type'];
       header('location:index.php');
     } elseif ($row['acct_type'] == 'teacher') {
-      // $_SESSION['id'] = $row['id'];
+      $_SESSION['id'] = $row['id'];
+      $_SESSION['email'] = $row['email_id'];
+      $_SESSION['fname'] = $row['fname'];
+      $_SESSION['lname'] = $row['lname'];
+      $_SESSION['class_arm'] = $row['class_arm'];
+      $_SESSION['acct_type'] = $row['acct_type'];
+      header('location:teacher-dashboard.php');
+    } elseif ($row['acct_type'] == 'student') {
+      $_SESSION['id'] = $row['id'];
       $_SESSION['email'] = $row['email_id'];
       $_SESSION['fname'] = $row['fname'];
       $_SESSION['lname'] = $row['lname'];
       $_SESSION['acct_type'] = $row['acct_type'];
-      header('location:teacher-dashboard.php');
+      header('location:student-dashboard.php');
     }
-  } elseif ($row['acct_type'] == 'student') {
-    $_SESSION['email'] = $row['email_id'];
-    $_SESSION['fname'] = $row['fname'];
-    $_SESSION['lname'] = $row['lname'];
-    $_SESSION['acct_type'] = $row['acct_type'];
-    header('location:student-dashboard.php');
   } else {
     $error[] = 'incorrect email or password!';
   }
@@ -69,8 +72,18 @@ if (isset($_POST['submit'])) {
 
               <h1>Login</h1>
               <?php
+              if (isset($worked)) {
+                foreach ($worked as $work) {
+                  echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your <a href='#' class='alert-link'>message</a> has been sent successfully.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+                </button>
+                </div>";
+                }
+              }
               ?>
-              <p class="account-subtitle">Access to our dashboard, <?php echo "worked"; ?></p>
+              <p class="account-subtitle">Access to our dashboard</p>
               <form action="" method="POST">
                 <div class="form-group">
                   <input class="form-control" type="text" placeholder="Email" name="email" />

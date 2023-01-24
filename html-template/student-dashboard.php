@@ -3,11 +3,11 @@
 <?php
 session_start();
 if (!isset($_SESSION['fname'])) {
-  header('location:login.php');
+    header('location:login.php');
 } else {
-  if (!$_SESSION['acct_type'] == 'studnets') {
-    header('location:error.php');
-  }
+    if ($_SESSION['acct_type'] == 'admin' || $_SESSION['acct_type'] == 'teacher') {
+        header('location:error.php');
+    }
 }
 $user_id = $_SESSION['email'];
 $fname = $_SESSION['fname'];

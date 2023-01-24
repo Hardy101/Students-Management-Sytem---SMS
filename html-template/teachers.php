@@ -1,5 +1,15 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+    header('location:login.php');
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
+<?php
 $query = "SELECT * FROM teachers";
 $show_all_teachers = mysqli_query($conn, $query);
 ?>
@@ -15,11 +25,6 @@ $result = mysqli_query($conn, $query);
 <body>
     <div class="main-wrapper">
         <?php include 'assets/includes/nav.php' ?>
-        <?php
-        // if (!$id == 'admin') {
-        //     header('location:');
-        // }
-        ?>
         <?php include 'assets/includes/sidenav.php' ?>
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -80,7 +85,7 @@ $result = mysqli_query($conn, $query);
                                                             <a href='edit-teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-success-light mr-2'>
                                                                 <i class='fas fa-pen'></i>
                                                             </a>
-                                                            <a href='#' class='btn btn-sm bg-danger-light'>
+                                                            <a href='delete_teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-danger-light'>
                                                                 <i class='fas fa-trash'></i>
                                                             </a>
                                                         </div>

@@ -1,9 +1,9 @@
 <div class="header">
     <div class="header-left">
-        <a href="index.html" class="logo">
+        <a href="index.php" class="logo">
             <img src="assets/img/logo.png" alt="Logo">
         </a>
-        <a href="index.html" class="logo logo-small">
+        <a href="index.php" class="logo logo-small">
             <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
         </a>
     </div>
@@ -104,7 +104,7 @@
                         <p class="text-muted mb-0"><?php echo $acct_type ?></p>
                     </div>
                 </div>
-                <a class="dropdown-item" href="profile.html">My Profile</a>
+                <a class="dropdown-item" href="profile.php">My Profile</a>
                 <a class="dropdown-item" href="logout.php">Logout</a>
             </div>
         </li>

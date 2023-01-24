@@ -33,14 +33,37 @@ function CreateStudent()
     $religion = $_POST['religion'];
     $join_date = $_POST['join_date'];
 
-    $query = "INSERT INTO students(stud_id, fname, lname, class_arm, mob_num, email, gender, dob, address, religion, join_date) ";
-    $query .= "VALUES('$stud_id', '$fname', '$lname', '$class_arm', '$mob_num', '$email', '$gender', '$dob', '$address', '$religion', '$join_date')";
 
-    $result = mysqli_query($conn, $query);
-    if (!$result) {
-        die("Request Could Not be completed!");
+    // Getting Image info
+    $img_name = $_FILES['file']['name'];
+    $img_size = $_FILES['file']['size'];
+    $tmp_name = $_FILES['file']['tmp_name'];
+    $error = $_FILES['file']['error'];
+
+    if ($error === 0) {
+        if ($img_size > 1000000) {
+            echo $error_msg =  "File Size too large";
+        } else {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'jpg');
+            // Checking if file format is supported
+            if (in_array($img_ex_lc, $allowed_exs)) {
+                $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+                $img_upload_path = 'uploads/stud_img/' . $new_img_name;
+                // Uploading the file to a directory
+                move_uploaded_file($tmp_name, $img_upload_path);
+                $query = "INSERT INTO students(stud_id, fname, lname, class_arm, mob_num, email, gender, dob, address, religion, join_date, image) ";
+                $query .= "VALUES('$stud_id', '$fname', '$lname', '$class_arm', '$mob_num', '$email', '$gender', '$dob', '$address', '$religion', '$join_date', '$new_img_name')";
+                $result = mysqli_query($conn, $query);
+                header('location: students.php');
+            } else {
+                $error_msg = "Sorry, You can't upload file of this type";
+            }
+        }
     } else {
-        header('location: students.php');
+        $error_msg = "An error occured";
     }
 }
 function CreateSubject()

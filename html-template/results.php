@@ -1,5 +1,23 @@
 <?php include 'assets/includes/db.php' ?>
+<?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+    header('location:login.php');
+} else {
+    if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
+        header('location:error.php');
+    }
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
 <?php include 'assets/includes/header.php' ?>
+<?php
+$query = "SELECT * FROM results";
+$result = mysqli_query($conn, $query);
+?>
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 <title>Preskool - Results</title>
 </head>
@@ -20,8 +38,7 @@
                             </ul>
                         </div>
                         <div class="col-auto text-right float-right ml-auto">
-                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-                            <a href="add-student.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                            <a href="add-results.php" class="btn btn-primary"><i class="fas fa-upload"></i> Upload Result</a>
                         </div>
                     </div>
                 </div>
@@ -32,33 +49,38 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-center mb-0 datatable">
                                         <thead>
+
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Student Name</th>
                                                 <th>Student Class</th>
                                                 <th>Term</th>
-                                                <th>Year</th>
+                                                <th>Upload Date</th>
+                                                <th class="text-center">Download</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-right">
-                                                    <div class="actions">
-                                                        <a href="edit-results.php" class="btn btn-sm bg-success-light mr-2">
-                                                            <i class="fas fa-pen"></i>
-                                                        </a>
-                                                        <a href="delete_results.php" class="btn btn-sm bg-danger-light">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                                <tr>
+                                                    <td><?php echo $row['stud_id'] ?></td>
+                                                    <td><?php echo $row['stud_class'] ?></td>
+                                                    <td><?php echo $row['term'] ?></td>
+                                                    <td><?php echo $row['upload_date'] ?></td>
+                                                    <td class="text-center"><a style="color:white;" href="" class="btn btn-sm bg-success mr-2">
+                                                            <i class="fas fa-download"></i>
+                                                        </a></td>
+                                                    <td class="text-right">
+                                                        <div class="actions">
+                                                            <a href="uploads/<?php echo $row['file'] ?>" target="_blank" class="btn btn-sm bg-success-light mr-2">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <a href="delete/delete-result.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-danger-light">
+                                                                <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile ?>
                                         </tbody>
                                     </table>
                                 </div>

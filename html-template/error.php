@@ -26,7 +26,7 @@
             <h1><i class="fas fa-exclamation-triangle"></i></h1>
             <h3 class="h2 mb-3">Access denied!</h3>
             <p class="h4 font-weight-normal">You're not Allowed to view this page.</p>
-            <a href="index.php" class="btn btn-primary">Back to Home</a>
+            <button href="index.php" class="btn btn-primary" onclick="history.go(-1)">Go Back</button>
         </div>
     </div>
 

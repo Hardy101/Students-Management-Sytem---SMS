@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['fname'])) {
   header('location:login.php');
 } else {
-  if (!$_SESSION['acct_type'] == 'teacher') {
+  if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'admin') {
     header('location:error.php');
   }
 }

@@ -1,4 +1,18 @@
 <?php include 'assets/includes/db.php' ?>
+<?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+   header('location:login.php');
+} else {
+   if ($_SESSION['acct_type'] == 'student') {
+      header('location:error.php');
+   }
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
 <?php include 'assets/includes/functions.php' ?>
 <?php if (isset($_POST['submit'])) {
    CreateStudent();
@@ -28,11 +42,21 @@
                <div class="col-sm-12">
                   <div class="card">
                      <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                            <div class="row">
                               <div class="col-12">
                                  <h5 class="form-title"><span>Student Information</span></h5>
                               </div>
+                              <?php
+                              if (isset($error_msg)) {
+                                 echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                 <strong>Error!</strong> $error_msg
+                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                 <span aria-hidden='true'>&times;</span>
+                                 </button>
+                                 </div>";
+                              }
+                              ?>
                               <div class="col-12 col-sm-6">
                                  <div class="form-group">
                                     <label>First Name</label>
@@ -112,7 +136,7 @@
                               <div class="col-12 col-sm-6">
                                  <div class="form-group">
                                     <label>Student Image</label>
-                                    <input type="file" class="form-control">
+                                    <input name="file" type="file" class="form-control">
                                  </div>
                               </div>
                               <!-- <div class="col-12">

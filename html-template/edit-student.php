@@ -1,4 +1,18 @@
 <?php include 'assets/includes/db.php' ?>
+<?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+   header('location:login.php');
+} else {
+   if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
+      header('location:error.php');
+   }
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
 <?php include 'assets/includes/functions.php' ?>
 <?php include 'assets/includes/header.php' ?>
 <?php
@@ -174,16 +188,17 @@ if (isset($_GET['id'])) {
                                     <textarea class="form-control">86 Lamphey Road, Thelnetham</textarea>
                                  </div>
                               </div>
+                             
+                              </div> -->
                               <div class="col-12 col-sm-6">
                                  <div class="form-group">
                                     <label>Permanent Address</label>
-                                    <textarea class="form-control">86 Lamphey Road, Thelnetham</textarea>
+                                    <textarea name="address" class="form-control"><?php echo $result['address'] ?></textarea>
                                  </div>
-                              </div> -->
-                              <div class="col-12">
-                                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                 <div class="col-12">
+                                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                 </div>
                               </div>
-                           </div>
                         </form>
                      </div>
                   </div>

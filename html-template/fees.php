@@ -1,3 +1,17 @@
+<?php include 'assets/includes/db.php' ?>
+<?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+    header('location:login.php');
+}
+if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
+    header('location:error.php');
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
 <?php include 'assets/includes/header.php' ?>
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 <title>Preskool - Fees</title>

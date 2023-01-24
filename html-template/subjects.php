@@ -1,5 +1,15 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+   header('location:login.php');
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
+<?php
 $query = "SELECT * FROM subject ORDER BY sub_name ASC";
 $show_all_subjects = mysqli_query($conn, $query);
 ?>

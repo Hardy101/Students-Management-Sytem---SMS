@@ -1,4 +1,18 @@
 <?php include 'assets/includes/db.php' ?>
+<?php
+session_start();
+if (!isset($_SESSION['fname'])) {
+    header('location:login.php');
+} else {
+    if ($_SESSION['acct_type'] == 'student') {
+        header('location:error.php');
+    }
+}
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
+?>
 <?php include 'assets/includes/functions.php' ?>
 <?php
 if (isset($_POST['submit'])) {
