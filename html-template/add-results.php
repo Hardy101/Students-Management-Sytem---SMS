@@ -13,28 +13,6 @@ $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
 ?>
-<?php
-// if (isset($_POST['submit'])) {
-//     $stud_id = $_POST['stud_id'];
-//     $class_arm = $_POST['class_arm'];
-//     $term = $_POST['term'];
-//     // $year = $_POST['year'];
-//     $upload_date = $_POST['upload_date'];
-//     $stud_img = $_POST['stud_img'];
-
-//     $file_name = rand(1000, 10000) . "-" . $_FILES['file']['name'];
-
-//     $temp_name = $_FILES['files']['temp_name'];
-
-//     $uploads_dir = 'assets/img';
-//     move_uploaded_file($temp_name, $uploads_dir . '/' . '$file_name');
-
-//     $query = "INSERT INTO results(stud_id, stud_class, term, upload_date, file) ";
-//     $query .= "VALUES($stud_id, $class_arm, $term, $upload_date. $stud_img)";
-
-//     $result = mysqli_query($conn, $query);
-// }
-?>
 <?php include 'assets/includes/header.php' ?>
 <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css">
 <title>Preskool - Dashboard</title>

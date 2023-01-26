@@ -10,7 +10,7 @@ $user_email = $_SESSION['email'];
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
-$class_arm = $_SESSION['class_arm'];
+// $class_arm = $_SESSION['class_arm'];
 ?>
 <?php
 // SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCOUNT LOGGED IN
@@ -26,23 +26,79 @@ $query .= "WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
 $result = mysqli_fetch_assoc($result);
 ?>
+<!-- SUBMIT THE UPLOAD PICTURE FORM -->
+<?php
+if (isset($_POST['submit'])) {
+   $img_name = $_FILES['file']['name'];
+   $img_size = $_FILES['file']['size'];
+   $tmp_name = $_FILES['file']['tmp_name'];
+   $error = $_FILES['file']['error'];
+
+   if ($error === 0) {
+      if ($img_size > 1000000) {
+         $error_msg[] =  "File Size too large";
+      } else {
+         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+         $img_ex_lc = strtolower($img_ex);
+
+         $allowed_exs = array('jpg', 'jpeg', 'jpg');
+         // Checking if file format is supported
+         if (in_array($img_ex_lc, $allowed_exs)) {
+            $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+            if ($acct_type == 'admin') {
+               $img_upload_path = 'uploads/admin_img/' . $new_img_name;
+            } else if ($acct_type == 'teacher') {
+               $img_upload_path = 'uploads/teach_img/' . $new_img_name;
+            } else if ($acct_type == 'student') {
+               $img_upload_path = 'uploads/stud_img/' . $new_img_name;
+            }
+            // Uploading the file to a directory
+            move_uploaded_file($tmp_name, $img_upload_path);
+            if ($acct_type == 'admin') {
+               $query = "UPDATE admin SET ";
+            } else if ($acct_type == 'teacher') {
+               $query = "UPDATE teachers SET ";
+            } else if ($acct_type == 'student') {
+               $query = "UPDATE students SET ";
+            }
+            $query .= "image = '$new_img_name' ";
+            $query .= "WHERE id = '$user_id'";
+            $result = mysqli_query($conn, $query);
+            header('location: profile.php');
+         } else {
+            $error_msg = "Sorry, You can't upload file of this type";
+         }
+      }
+   } else {
+      $error_msg = "An error occured";
+   }
+}
+?>
 <?php include 'assets/includes/header.php' ?>
 <link rel="stylesheet" href="assets/css/main.css">
 <title>Preskool - Profile</title>
 </head>
 
 <body>
-
    <div class="main-wrapper">
       <div class="modal-nav hide"></div>
       <div class="modal-con hide">
-         <form class="form-class" action="" enctype="multipart/form-data">
+         <form class="form-class" action="" method="post" enctype="multipart/form-data">
             <h4 class="text-center">Update Picture</h4>
+            <?php
+            if(isset($error_msg)){
+               echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+               <strong>Error!</strong> $error_msg
+               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+               <span aria-hidden='true'>&times;</span>
+               </button>
+               </div>";
+            }
+             ?>
             <div class="form-group mt-4">
-               <input class="form-control" type="file" name="file" id="">
+               <input type="file" name="file" class="form-control" required>
             </div>
-            <div class="form-group upload-div"><button class="btn btn-primary upload">Upload <i
-                     class="fa fa-upload"></i></button></div>
+            <div class="form-group upload-div"><button type="submit" name="submit" class="btn btn-primary upload">Upload <i class="fa fa-upload"></i></button></div>
             <hr>
             <div class="form-group"><button class="btn btn-primary close-btn">Close <i class="fa fa-times"></i></button>
             </div>
@@ -90,8 +146,7 @@ $result = mysqli_fetch_assoc($result);
                               <?php echo $fname . ' ' . $lname ?>
                            </h4>
                            <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Benin, Nigeria</div>
-                           <button type="button" onclick="open_modal()" class="btn btn-light" data-bs-toggle="modal"
-                              data-bs-target="#exampleModal">Edit Profile Picture <i class="fas fa-edit"></i></button>
+                           <button type="button" onclick="open_modal()" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit Profile Picture <i class="fas fa-edit"></i></button>
                         </div>
                      </div>
                   </div>
@@ -113,8 +168,7 @@ $result = mysqli_fetch_assoc($result);
                                  <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between">
                                        <span>Personal Details</span>
-                                       <a class="edit-link" href="edit-teacher.php?id=<?php echo $user_id ?>"><i
-                                             class="far fa-edit mr-1"></i>Edit</a>
+                                       <a class="edit-link" href="edit-teacher.php?id=<?php echo $user_id ?>"><i class="far fa-edit mr-1"></i>Edit</a>
                                     </h5>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
