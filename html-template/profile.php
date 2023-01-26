@@ -10,6 +10,7 @@ $user_email = $_SESSION['email'];
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
+$class_arm = $_SESSION['class_arm'];
 ?>
 <?php
 // SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCOUNT LOGGED IN
@@ -26,31 +27,31 @@ $result = mysqli_query($conn, $query);
 $result = mysqli_fetch_assoc($result);
 ?>
 <?php include 'assets/includes/header.php' ?>
+<link rel="stylesheet" href="assets/css/main.css">
 <title>Preskool - Profile</title>
 </head>
 
 <body>
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               ...
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-         </div>
-      </div>
-   </div>
+
    <div class="main-wrapper">
+      <div class="modal-nav hide"></div>
+      <div class="modal-con hide">
+         <form class="form-class" action="" enctype="multipart/form-data">
+            <h4 class="text-center">Update Picture</h4>
+            <div class="form-group mt-4">
+               <input class="form-control" type="file" name="file" id="">
+            </div>
+            <div class="form-group upload-div"><button class="btn btn-primary upload">Upload <i
+                     class="fa fa-upload"></i></button></div>
+            <hr>
+            <div class="form-group"><button class="btn btn-primary close-btn">Close <i class="fa fa-times"></i></button>
+            </div>
+         </form>
+      </div>
       <?php include 'assets/includes/nav.php' ?>
       <?php include 'assets/includes/sidenav.php' ?>
       <div class="page-wrapper">
+
          <div class="content container-fluid">
             <div class="page-header">
                <div class="row">
@@ -68,16 +69,28 @@ $result = mysqli_fetch_assoc($result);
                   <div class="profile-header">
                      <div class="row align-items-center">
                         <div class="col-auto profile-image">
-                           <a href="#">
-                              <img class="rounded-circle" alt="User Image" src="assets/img/profiles/avatar-02.jpg">
-                           </a>
+                           <?php if ($acct_type == 'admin') {
+                              echo " <a href='#'>
+                                 <img class='rounded-circle' alt='User Image' src='uploads/admin_img/{$result['image']}'>
+                                 </a>";
+                           } else if ($acct_type == 'student') {
+                              echo "  <a href='#'>
+                                 <img class='rounded-circle' alt='User Image' src='uploads/stud_img/$user_id'>
+                                 </a>";
+                           } else if ($acct_type == 'teacher') {
+                              echo "  <a href='#'>
+                                 <img class='rounded-circle' alt='User Image' src='uploads/stud_img/$class_arm '>
+                                 </a>";
+                           }
+                           ?>
+
                         </div>
                         <div class="col ml-md-n2 profile-user-info">
                            <h4 class="user-name mb-0">
                               <?php echo $fname . ' ' . $lname ?>
                            </h4>
                            <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Benin, Nigeria</div>
-                           <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                           <button type="button" onclick="open_modal()" class="btn btn-light" data-bs-toggle="modal"
                               data-bs-target="#exampleModal">Edit Profile Picture <i class="fas fa-edit"></i></button>
                         </div>
                      </div>
@@ -182,15 +195,12 @@ $result = mysqli_fetch_assoc($result);
          </div>
       </div>
    </div>
-   <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
    <script src="assets/js/jquery-3.6.0.min.js"></script>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"></script>
+   <script src="assets/js/popper.min.js"></script>
+   <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
    <script src="assets/js/script.js"></script>
+   <script src="assets/js/main.js"></script>
 </body>
 
 </html>

@@ -329,7 +329,6 @@ table.table td h2 span {
 /*-----------------
 	4. Bootstrap Classes
 -----------------------*/
-
 .btn.focus, .btn:focus {
     box-shadow: unset;
 }

@@ -1,0 +1,47 @@
+.modal-nav {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.475);
+  z-index: 99999;
+}
+.form-class {
+  padding: 1rem 0.2rem 0.5rem 0.2rem;
+  border-radius: 10px;
+}
+.modal-con {
+  width: 300px !important;
+  position: absolute !important;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red !important;
+  background: whitesmoke !important;
+  border-radius: 3px;
+  z-index: 99999;
+  overflow: hidden;
+}
+.upload-div {
+  display: flex !important;
+  justify-content: center !important;
+}
+.upload:hover {
+  background: #ffbc53 !important;
+  border: 1px solid transparent !important;
+}
+.close-btn:hover {
+  background: #6c757d !important;
+  border: 1px solid transparent !important;
+}
+.upload {
+  text-align: center !important;
+}
+.close-btn {
+  background: #6c757d !important;
+  float: right;
+  margin: 10px;
+  border: 1px solid transparent;
+}
+.hide {
+  display: none;
+}

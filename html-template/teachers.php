@@ -8,6 +8,7 @@ $user_id = $_SESSION['email'];
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
+$class_arm = $_SESSION['class_arm'];
 ?>
 <?php
 $query = "SELECT * FROM teachers";
@@ -39,7 +40,9 @@ $result = mysqli_query($conn, $query);
                             </ul>
                         </div>
                         <div class="col-auto text-right float-right ml-auto">
-                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download
+                                <?php echo $class_arm ?>
+                            </a>
                             <a href="add-teacher.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                         </div>
                     </div>
@@ -65,27 +68,48 @@ $result = mysqli_query($conn, $query);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                                 <tr>
-                                                    <td><?php echo $row['teach_id'] ?></td>
+                                                    <td>
+                                                        <?php echo $row['teach_id'] ?>
+                                                    </td>
                                                     <td>
                                                         <h2 class='table-avatar'>
-                                                            <a href='teacher-details.php' class='avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='assets/img/profiles/avatar-02.jpg' alt='User Image'></a>
-                                                            <a href='teacher-details.php'><?php echo $row['fname'] ?></a>
+                                                            <a href='teacher-details.php' class='avatar avatar-sm mr-2'><img
+                                                                    class='avatar-img rounded-circle'
+                                                                    src='assets/img/profiles/avatar-02.jpg'
+                                                                    alt='User Image'></a>
+                                                            <a href='teacher-details.php'>
+                                                                <?php echo $row['fname'] ?>
+                                                            </a>
                                                         </h2>
                                                     </td>
-                                                    <td><?php echo $row['class_arm'] ?></td>
-                                                    <td><?php echo $row['gender'] ?></td>
-                                                    <td><?php echo $row['subject'] ?></td>
-                                                    <td><?php echo $row['class_arm'] ?></td>
-                                                    <td><?php echo $row['mob_num'] ?></td>
-                                                    <td><?php echo $row['address'] ?></td>
+                                                    <td>
+                                                        <?php echo $row['class_arm'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $row['gender'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $row['subject'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $row['class_arm'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $row['mob_num'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $row['address'] ?>
+                                                    </td>
                                                     <td class='text-right'>
                                                         <div class='actions'>
-                                                            <a href='edit-teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-success-light mr-2'>
+                                                            <a href='edit-teacher.php?id=<?php echo $row['id'] ?>'
+                                                                class='btn btn-sm bg-success-light mr-2'>
                                                                 <i class='fas fa-pen'></i>
                                                             </a>
-                                                            <a href='delete_teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-danger-light'>
+                                                            <a href='delete_teacher.php?id=<?php echo $row['id'] ?>'
+                                                                class='btn btn-sm bg-danger-light'>
                                                                 <i class='fas fa-trash'></i>
                                                             </a>
                                                         </div>

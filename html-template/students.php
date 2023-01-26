@@ -18,13 +18,12 @@ $class_arm = $_SESSION['class_arm'];
 if ($acct_type == 'teacher') {
    $query = "SELECT * FROM students WHERE class_arm == $class_arm";
    $result = mysqli_query($conn, $query);
+} else if ($acct_type == 'admin') {
+   $query = "SELECT * FROM students";
+   $result = mysqli_query($conn, $query);
 }
 ?>
 <?php include 'assets/includes/header.php' ?>
-<?php
-$query = "SELECT * FROM students";
-$result = mysqli_query($conn, $query);
-?>
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 <title>Preskool - Students</title>
 </head>
@@ -45,7 +44,9 @@ $result = mysqli_query($conn, $query);
                      </ul>
                   </div>
                   <div class="col-auto text-right float-right ml-auto">
-                     <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                     <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download
+                        <?php echo $class_arm ?>
+                     </a>
                      <a href="add-student.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                   </div>
                </div>
@@ -69,26 +70,40 @@ $result = mysqli_query($conn, $query);
                                  </tr>
                               </thead>
                               <tbody>
-                                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                 <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                     <tr>
-                                       <td><?php echo $row['stud_id'] ?></td>
+                                       <td>
+                                          <?php echo $row['stud_id'] ?>
+                                       </td>
                                        <td>
                                           <h2 class="table-avatar">
-                                             <a href="student-details.php?id=<?php echo $row['id'] ?>" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/profiles/avatar-01.jpg" alt="User Image"></a>
+                                             <a href="student-details.php?id=<?php echo $row['id'] ?>"
+                                                class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
+                                                   src="assets/img/profiles/avatar-01.jpg" alt="User Image"></a>
                                              <a href="student-details.php?id=<?php echo $row['id'] ?>"><?php echo $row['fname'] ?></a>
                                           </h2>
                                        </td>
-                                       <td><?php echo $row['class_arm'] ?></td>
-                                       <td><?php echo $row['dob'] ?></td>
+                                       <td>
+                                          <?php echo $row['class_arm'] ?>
+                                       </td>
+                                       <td>
+                                          <?php echo $row['dob'] ?>
+                                       </td>
                                        <td>Jeffrey Wong</td>
-                                       <td><?php echo $row['mob_num'] ?></td>
-                                       <td><?php echo $row['address'] ?></td>
+                                       <td>
+                                          <?php echo $row['mob_num'] ?>
+                                       </td>
+                                       <td>
+                                          <?php echo $row['address'] ?>
+                                       </td>
                                        <td class="text-right">
                                           <div class="actions">
-                                             <a href="edit-student.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-success-light mr-2">
+                                             <a href="edit-student.php?id=<?php echo $row['id'] ?>"
+                                                class="btn btn-sm bg-success-light mr-2">
                                                 <i class="fas fa-pen"></i>
                                              </a>
-                                             <a href="delete/delete_student.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-danger-light">
+                                             <a href="delete/delete_student.php?id=<?php echo $row['id'] ?>"
+                                                class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
                                              </a>
                                           </div>
