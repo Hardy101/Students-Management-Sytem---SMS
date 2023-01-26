@@ -14,7 +14,7 @@ $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
 ?>
 <?php include 'assets/includes/header.php' ?>
-<?php
+<?php 
 $query = "SELECT * FROM results";
 $result = mysqli_query($conn, $query);
 ?>

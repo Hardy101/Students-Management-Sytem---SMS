@@ -11,15 +11,14 @@ $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
 ?>
-<!-- QUERY CODE -->
 <?php
-// SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCT LOGGED IN
+// SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCOUNT LOGGED IN
 
-if ($acct_type ==  'student') {
+if ($acct_type == 'student') {
    $query = "SELECT * FROM students ";
-} else if ($acct_type ==  'admin') {
+} else if ($acct_type == 'admin') {
    $query = "SELECT * FROM admin ";
-} else if ($acct_type ==  'teacher') {
+} else if ($acct_type == 'teacher') {
    $query = "SELECT * FROM teachers ";
 }
 $query .= "WHERE id = $user_id";
@@ -31,6 +30,23 @@ $result = mysqli_fetch_assoc($result);
 </head>
 
 <body>
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               ...
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
    <div class="main-wrapper">
       <?php include 'assets/includes/nav.php' ?>
       <?php include 'assets/includes/sidenav.php' ?>
@@ -57,9 +73,12 @@ $result = mysqli_fetch_assoc($result);
                            </a>
                         </div>
                         <div class="col ml-md-n2 profile-user-info">
-                           <h4 class="user-name mb-0"><?php echo $fname . ' ' . $lname ?></h4>
+                           <h4 class="user-name mb-0">
+                              <?php echo $fname . ' ' . $lname ?>
+                           </h4>
                            <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Benin, Nigeria</div>
-                           <!-- <div class="about-text">Lorem ipsum dolor sit amet.</div> -->
+                           <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal">Edit Profile Picture <i class="fas fa-edit"></i></button>
                         </div>
                      </div>
                   </div>
@@ -81,27 +100,37 @@ $result = mysqli_fetch_assoc($result);
                                  <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between">
                                        <span>Personal Details</span>
-                                       <a class="edit-link" href="edit-teacher.php?id=<?php echo $user_id ?>"><i class="far fa-edit mr-1"></i>Edit</a>
+                                       <a class="edit-link" href="edit-teacher.php?id=<?php echo $user_id ?>"><i
+                                             class="far fa-edit mr-1"></i>Edit</a>
                                     </h5>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
-                                       <p class="col-sm-9"><?php echo $result['fname'] . ' ' . $result['lname'] ?></p>
+                                       <p class="col-sm-9">
+                                          <?php echo $result['fname'] . ' ' . $result['lname'] ?>
+                                       </p>
                                     </div>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
-                                       <p class="col-sm-9"><?php echo $result['dob'] ?></p>
+                                       <p class="col-sm-9">
+                                          <?php echo $result['dob'] ?>
+                                       </p>
                                     </div>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email ID</p>
-                                       <p class="col-sm-9"><?php echo $result['email'] ?></p>
+                                       <p class="col-sm-9">
+                                          <?php echo $result['email'] ?>
+                                       </p>
                                     </div>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
-                                       <p class="col-sm-9"><?php echo $result['mob_num'] ?></p>
+                                       <p class="col-sm-9">
+                                          <?php echo $result['mob_num'] ?>
+                                       </p>
                                     </div>
                                     <div class="row">
                                        <p class="col-sm-3 text-muted text-sm-right mb-0">Address</p>
-                                       <p class="col-sm-9 mb-0"><?php echo $result['address'] ?>
+                                       <p class="col-sm-9 mb-0">
+                                          <?php echo $result['address'] ?>
                                        </p>
                                     </div>
                                  </div>
@@ -114,7 +143,8 @@ $result = mysqli_fetch_assoc($result);
                                        <span>Account Status</span>
                                        <a class="edit-link" href="#"><i class="far fa-edit mr-1"></i> Edit</a>
                                     </h5>
-                                    <button class="btn btn-success" type="button"><i class="fe fe-check-verified"></i> Active</button>
+                                    <button class="btn btn-success" type="button"><i class="fe fe-check-verified"></i>
+                                       Active</button>
                                  </div>
                               </div>
                            </div>
@@ -154,8 +184,11 @@ $result = mysqli_fetch_assoc($result);
    </div>
    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
    <script src="assets/js/jquery-3.6.0.min.js"></script>
-   <script src="assets/js/popper.min.js"></script>
-   <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
    <script src="assets/js/script.js"></script>
 </body>
