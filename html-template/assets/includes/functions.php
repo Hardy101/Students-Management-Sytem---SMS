@@ -5,12 +5,13 @@ function CreateUser()
     $user_id = $_POST['user_id'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
+    $class_arm = $_POST['class_arm'];
     $email = $_POST['email_id'];
     $password = $_POST['psw'];
     $acct_type = $_POST['acct_type'];
 
-    $query = "INSERT INTO users(user_id, fname, lname, email_id, password, acct_type) ";
-    $query .= "VALUES('$user_id', '$fname', '$lname', '$email', '$password', '$acct_type') ";
+    $query = "INSERT INTO users(user_id, fname, lname, email_id, password, acct_type, class_arm) ";
+    $query .= "VALUES('$user_id', '$fname', '$lname', '$email', '$password', '$acct_type', '$class_arm') ";
 
     $result = mysqli_query($conn, $query);
     // $result = $conn->$query;

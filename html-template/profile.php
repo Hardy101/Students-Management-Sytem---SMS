@@ -10,19 +10,21 @@ $user_email = $_SESSION['email'];
 $fname = $_SESSION['fname'];
 $lname = $_SESSION['lname'];
 $acct_type = $_SESSION['acct_type'];
-// $class_arm = $_SESSION['class_arm'];
+$class_arm = $_SESSION['class_arm'];
 ?>
 <?php
 // SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCOUNT LOGGED IN
 
 if ($acct_type == 'student') {
    $query = "SELECT * FROM students ";
+   $query .= "WHERE stud_id = '$user_id'"; 
 } else if ($acct_type == 'admin') {
    $query = "SELECT * FROM admin ";
+   $query .= "WHERE id = 1";
 } else if ($acct_type == 'teacher') {
    $query = "SELECT * FROM teachers ";
+   $query .= "WHERE teach_id = '$user_id'";
 }
-$query .= "WHERE id = $user_id";
 $result = mysqli_query($conn, $query);
 $result = mysqli_fetch_assoc($result);
 ?>
@@ -56,13 +58,18 @@ if (isset($_POST['submit'])) {
             move_uploaded_file($tmp_name, $img_upload_path);
             if ($acct_type == 'admin') {
                $query = "UPDATE admin SET ";
+               $query .= "image = '$new_img_name' ";
+               $query .= "WHERE user_id = '$user_id'";
             } else if ($acct_type == 'teacher') {
                $query = "UPDATE teachers SET ";
+               $query .= "image = '$new_img_name' ";
+               $query .= "WHERE teach_id = '$user_id'";
             } else if ($acct_type == 'student') {
                $query = "UPDATE students SET ";
+               $query .= "image = '$new_img_name' ";
+               $query .= "WHERE stud_id = '$user_id'";
             }
-            $query .= "image = '$new_img_name' ";
-            $query .= "WHERE id = '$user_id'";
+
             $result = mysqli_query($conn, $query);
             header('location: profile.php');
          } else {
@@ -86,7 +93,7 @@ if (isset($_POST['submit'])) {
          <form class="form-class" action="" method="post" enctype="multipart/form-data">
             <h4 class="text-center">Update Picture</h4>
             <?php
-            if(isset($error_msg)){
+            if (isset($error_msg)) {
                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                <strong>Error!</strong> $error_msg
                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -94,7 +101,7 @@ if (isset($_POST['submit'])) {
                </button>
                </div>";
             }
-             ?>
+            ?>
             <div class="form-group mt-4">
                <input type="file" name="file" class="form-control" required>
             </div>
@@ -131,11 +138,11 @@ if (isset($_POST['submit'])) {
                                  </a>";
                            } else if ($acct_type == 'student') {
                               echo "  <a href='#'>
-                                 <img class='rounded-circle' alt='User Image' src='uploads/stud_img/$user_id'>
+                                 <img class='rounded-circle' alt='User Image' src='uploads/stud_img/{$result['image']}'>
                                  </a>";
                            } else if ($acct_type == 'teacher') {
                               echo "  <a href='#'>
-                                 <img class='rounded-circle' alt='User Image' src='uploads/stud_img/$class_arm '>
+                                 <img class='rounded-circle' alt='User Image' src='uploads/teach_img/{$result['image']}'>
                                  </a>";
                            }
                            ?>

@@ -71,33 +71,33 @@ $acct_type = $_SESSION['acct_type'];
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group">
                                                     <label>Student Id</label>
-                                                    <input name="stud_id" type="text" class="form-control">
+                                                    <input name="stud_id" type="text" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group">
                                                     <label>Student Class</label>
-                                                    <input name="class_arm" type="text" class="form-control">
+                                                    <input name="class_arm" type="text" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group">
                                                     <label>Term</label>
-                                                    <input name="term" type="text" class="form-control">
+                                                    <input name="term" type="text" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group">
                                                     <label>Upload Date</label>
                                                     <div>
-                                                        <input name="upload_date" type="date" class="form-control">
+                                                        <input name="upload_date" type="date" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-6">
                                                 <div class="form-group">
                                                     <label>Result</label>
-                                                    <input name="file" type="file" class="form-control">
+                                                    <input name="file" type="file" class="form-control" required>
                                                 </div>
                                             </div>
 

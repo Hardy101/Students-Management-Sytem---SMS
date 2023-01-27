@@ -9,14 +9,10 @@ if (!isset($_SESSION['fname'])) {
    }
 }
 
-$user_id = $_SESSION['email'];
-$fname = $_SESSION['fname'];
-$lname = $_SESSION['lname'];
-$acct_type = $_SESSION['acct_type'];
-$class_arm = $_SESSION['class_arm'];
+include 'assets/includes/details.php';
 
 if ($acct_type == 'teacher') {
-   $query = "SELECT * FROM students WHERE class_arm == $class_arm";
+   $query = "SELECT * FROM students WHERE class_arm = '$class_arm'";
    $result = mysqli_query($conn, $query);
 } else if ($acct_type == 'admin') {
    $query = "SELECT * FROM students";
@@ -63,24 +59,21 @@ if ($acct_type == 'teacher') {
                                     <th>Name</th>
                                     <th>Class</th>
                                     <th>DOB</th>
-                                    <th>Parent Name</th>
                                     <th>Mobile Number</th>
                                     <th>Address</th>
                                     <th class="text-right">Action</th>
                                  </tr>
                               </thead>
                               <tbody>
-                                 <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                                     <tr>
                                        <td>
                                           <?php echo $row['stud_id'] ?>
                                        </td>
                                        <td>
                                           <h2 class="table-avatar">
-                                             <a href="student-details.php?id=<?php echo $row['id'] ?>"
-                                                class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                                   src="assets/img/profiles/avatar-01.jpg" alt="User Image"></a>
-                                             <a href="student-details.php?id=<?php echo $row['id'] ?>"><?php echo $row['fname'] ?></a>
+                                             <a href="student-details.php?id=<?php echo $row['id'] ?>" target="_blank" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/profiles/avatar-01.jpg" alt="User Image"></a>
+                                             <a href="student-details.php?id=<?php echo $row['id'] ?>" target=" _blank"><?php echo $row['fname'] ?></a>
                                           </h2>
                                        </td>
                                        <td>
@@ -89,7 +82,6 @@ if ($acct_type == 'teacher') {
                                        <td>
                                           <?php echo $row['dob'] ?>
                                        </td>
-                                       <td>Jeffrey Wong</td>
                                        <td>
                                           <?php echo $row['mob_num'] ?>
                                        </td>
@@ -98,12 +90,10 @@ if ($acct_type == 'teacher') {
                                        </td>
                                        <td class="text-right">
                                           <div class="actions">
-                                             <a href="edit-student.php?id=<?php echo $row['id'] ?>"
-                                                class="btn btn-sm bg-success-light mr-2">
+                                             <a href="edit-student.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-success-light mr-2">
                                                 <i class="fas fa-pen"></i>
                                              </a>
-                                             <a href="delete/delete_student.php?id=<?php echo $row['id'] ?>"
-                                                class="btn btn-sm bg-danger-light">
+                                             <a href="delete/delete_student.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-trash"></i>
                                              </a>
                                           </div>

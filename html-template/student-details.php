@@ -1,4 +1,4 @@
-s<?php include 'assets/includes/db.php' ?>
+<?php include 'assets/includes/db.php' ?>
 <?php
 session_start();
 if (!isset($_SESSION['fname'])) {
@@ -9,10 +9,7 @@ if (!isset($_SESSION['fname'])) {
     }
 }
 
-$user_id = $_SESSION['email'];
-$fname = $_SESSION['fname'];
-$lname = $_SESSION['lname'];
-$acct_type = $_SESSION['acct_type'];
+include 'assets/includes/details.php';
 ?>
 <?php
 if (isset($_GET['id'])) {

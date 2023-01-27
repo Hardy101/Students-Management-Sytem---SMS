@@ -36,22 +36,25 @@ $acct_type = $_SESSION['acct_type'];
 
               <form action="" method="POST">
                 <div class="form-group">
-                  <input name="user_id" class="form-control" type="text" placeholder="User Id" />
+                  <input name="user_id" class="form-control" type="text" placeholder="User Id" required />
                 </div>
                 <div class="form-group">
-                  <input name="fname" class="form-control" type="text" placeholder="First Name" />
+                  <input name="fname" class="form-control" type="text" placeholder="First Name" required />
                 </div>
                 <div class="form-group">
-                  <input name="lname" class="form-control" type="text" placeholder="Last Name" />
+                  <input name="lname" class="form-control" type="text" placeholder="Last Name" required />
                 </div>
                 <div class="form-group">
-                  <input name="email_id" class="form-control" type="text" placeholder="Email" />
+                  <input name="class_arm" class="form-control" type="text" placeholder="Class" required />
                 </div>
                 <div class="form-group">
-                  <input name="psw" class="form-control" type="text" placeholder="Password" />
+                  <input name="email_id" class="form-control" type="text" placeholder="Email" required />
                 </div>
                 <div class="form-group">
-                  <select class="form-control" name="acct_type">
+                  <input name="psw" class="form-control" type="text" placeholder="Password" required />
+                </div>
+                <div class="form-group">
+                  <select class="form-control" name="acct_type" required>
                     <option value="teacher">Teacher</option>
                     <option value="student">Student</option>
                   </select>
@@ -69,7 +72,7 @@ $acct_type = $_SESSION['acct_type'];
               </div>
 
               <div class="text-center dont-have">
-                Already have an account? <a href="login.html">Login</a>
+                Already have an account? <a href="login.php">Login</a>
               </div>
             </div>
           </div>

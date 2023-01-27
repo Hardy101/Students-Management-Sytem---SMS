@@ -15,27 +15,25 @@ if (isset($_POST['submit'])) {
   if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_array($result);
 
-    if ($row['acct_type'] == 'admin') {
-      $_SESSION['id'] = $row['id'];
+    function sessionFunction()
+    {
+      global $row;
+      $_SESSION['id'] = $row['user_id'];
       $_SESSION['email'] = $row['email_id'];
       $_SESSION['fname'] = $row['fname'];
       $_SESSION['lname'] = $row['lname'];
       $_SESSION['acct_type'] = $row['acct_type'];
+      $_SESSION['class_arm'] = $row['class_arm'];
+    }
+    if ($row['acct_type'] == 'admin') {
+      sessionFunction();
       header('location:index.php');
     } elseif ($row['acct_type'] == 'teacher') {
-      $_SESSION['id'] = $row['id'];
-      $_SESSION['email'] = $row['email_id'];
-      $_SESSION['fname'] = $row['fname'];
-      $_SESSION['lname'] = $row['lname'];
+      sessionFunction();
       $_SESSION['class_arm'] = $row['class_arm'];
-      $_SESSION['acct_type'] = $row['acct_type'];
       header('location:teacher-dashboard.php');
     } elseif ($row['acct_type'] == 'student') {
-      $_SESSION['id'] = $row['id'];
-      $_SESSION['email'] = $row['email_id'];
-      $_SESSION['fname'] = $row['fname'];
-      $_SESSION['lname'] = $row['lname'];
-      $_SESSION['acct_type'] = $row['acct_type'];
+      sessionFunction();
       header('location:student-dashboard.php');
     }
   } else {

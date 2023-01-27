@@ -4,20 +4,18 @@ session_start();
 if (!isset($_SESSION['fname'])) {
     header('location:login.php');
 } else {
+    if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
+        header('location:error.php');
+    }
 }
-include 'assets/includes/details.php';
+$user_id = $_SESSION['email'];
+$fname = $_SESSION['fname'];
+$lname = $_SESSION['lname'];
+$acct_type = $_SESSION['acct_type'];
 ?>
 <?php include 'assets/includes/header.php' ?>
 <?php
-if ($acct_type == 'admin') {
-    $query = "SELECT * FROM results ";
-} else if ($acct_type == 'student') {
-    $query = "SELECT * FROM results ";
-    $query .= "WHERE stud_id = '$user_id'";
-} else if ($acct_type == 'teacher') {
-    $query = "SELECT * FROM results ";
-    $query .= "WHERE stud_class = '$class_arm'";
-}
+$query = "SELECT * FROM results";
 $result = mysqli_query($conn, $query);
 ?>
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
@@ -68,7 +66,7 @@ $result = mysqli_query($conn, $query);
                                                     <td><?php echo $row['stud_class'] ?></td>
                                                     <td><?php echo $row['term'] ?></td>
                                                     <td><?php echo $row['upload_date'] ?></td>
-                                                    <td class="text-center"><a style="color:white;" href="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf" download="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf" class="btn btn-sm bg-success mr-2">
+                                                    <td class="text-center"><a style="color:white;" href="" class="btn btn-sm bg-success mr-2">
                                                             <i class="fas fa-download"></i>
                                                         </a></td>
                                                     <td class="text-right">
