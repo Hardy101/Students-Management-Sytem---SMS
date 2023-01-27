@@ -1,5 +1,5 @@
 <?php include 'assets/includes/db.php' ?>
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['fname'])) {
     header('location:login.php');
@@ -8,15 +8,7 @@ if (!isset($_SESSION['fname'])) {
 include 'assets/includes/details.php';
 ?>
 <?php
-if ($acct_type == 'admin') {
-    $query = "SELECT * FROM results ";
-} else if ($acct_type == 'student') {
-    $query = "SELECT * FROM results ";
-    $query .= "WHERE stud_id = '$user_id'";
-} else if ($acct_type == 'teacher') {
-    $query = "SELECT * FROM results ";
-    $query .= "WHERE stud_class = '$class_arm'";
-}
+$query = "SELECT * FROM fees ";
 $result = mysqli_query($conn, $query);
 ?>
 <?php include 'assets/includes/header.php' ?>
@@ -33,15 +25,14 @@ $result = mysqli_query($conn, $query);
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Results</h3>
+                            <h3 class="page-title">Fees</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Results</li>
+                                <li class="breadcrumb-item active">Fees</li>
                             </ul>
                         </div>
                         <div class="col-auto text-right float-right ml-auto">
-                            <a href="add-results.php" class="btn btn-primary"><i class="fas fa-upload"></i> Upload
-                                Result</a>
+                            <a href="add-fees.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Fees</a>
                         </div>
                     </div>
                 </div>
@@ -54,11 +45,9 @@ $result = mysqli_query($conn, $query);
                                         <thead>
 
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Student Class</th>
-                                                <th>Term</th>
-                                                <th>Upload Date</th>
-                                                <th class="text-center">Download</th>
+                                                <th>Fee Name</th>
+                                                <th>Fee Description</th>
+                                                <th class="text-center">Amount</th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                         </thead>
@@ -66,30 +55,19 @@ $result = mysqli_query($conn, $query);
                                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                                 <tr>
                                                     <td>
-                                                        <?php echo $row['stud_id'] ?>
+                                                        <?php echo $row['name'] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['stud_class'] ?>
+                                                        <?php echo $row['fee_desc'] ?>
                                                     </td>
-                                                    <td>
-                                                        <?php echo $row['term'] ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['upload_date'] ?>
-                                                    </td>
-                                                    <td class="text-center"><a style="color:white;"
-                                                            href="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf"
-                                                            download="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf"
-                                                            class="btn btn-sm bg-success mr-2">
-                                                            <i class="fas fa-download"></i>
-                                                        </a></td>
+                                                    <td class="text-center">$300</td>
                                                     <td class="text-right">
                                                         <div class="actions">
-                                                            <a href="uploads/<?php echo $row['file'] ?>" target="_blank"
+                                                            <a href="edit-fees.php"
                                                                 class="btn btn-sm bg-success-light mr-2">
-                                                                <i class="fas fa-eye"></i>
+                                                                <i class="fas fa-edit"></i>
                                                             </a>
-                                                            <a href="delete/delete-result.php?id=<?php echo $row['id'] ?>"
+                                                            <a href="delete/delete-fees.php?id=<?php echo $row['id'] ?>"
                                                                 class="btn btn-sm bg-danger-light">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>

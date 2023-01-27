@@ -51,7 +51,7 @@
                 <li class="submenu">
                     <a href="#"><i class="fa fa-comment-dollar"></i> <span> Fees</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="results.php">Fees</a></li>
+                        <li><a href="fees.php">Fees</a></li>
                         <li><a href="add-results.php">Add Fees</a></li>
                     </ul>
                 </li>
