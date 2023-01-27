@@ -34,8 +34,7 @@ $show_all_subjects = mysqli_query($conn, $query);
                      </ul>
                   </div>
                   <div class="col-auto text-right float-right ml-auto">
-                     <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-                     <a href="add-subject.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                     <a href="add-subject.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Subject</a>
                   </div>
                </div>
             </div>
@@ -49,7 +48,7 @@ $show_all_subjects = mysqli_query($conn, $query);
                                  <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Class</th>
+                                    <th>Teacher</th>
                                     <th class="text-right">Action</th>
                                  </tr>
                               </thead>
@@ -62,7 +61,7 @@ $show_all_subjects = mysqli_query($conn, $query);
                                              <a><?php echo $row['sub_name'] ?></a>
                                           </h2>
                                        </td>
-                                       <td>4</td>
+                                       <td>James Rooney</td>
                                        <td class="text-right">
                                           <div class="actions">
                                              <a href="edit-subject.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-success-light mr-2">

@@ -40,10 +40,7 @@ if ($acct_type == 'teacher') {
                      </ul>
                   </div>
                   <div class="col-auto text-right float-right ml-auto">
-                     <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download
-                        <?php echo $class_arm ?>
-                     </a>
-                     <a href="add-student.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                     <a href="add-student.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</a>
                   </div>
                </div>
             </div>

@@ -40,10 +40,7 @@ $result = mysqli_query($conn, $query);
                             </ul>
                         </div>
                         <div class="col-auto text-right float-right ml-auto">
-                            <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download
-                                <?php echo $class_arm ?>
-                            </a>
-                            <a href="add-teacher.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                            <a href="add-teacher.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Teacher</a>
                         </div>
                     </div>
                 </div>
@@ -68,17 +65,14 @@ $result = mysqli_query($conn, $query);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                                                 <tr>
                                                     <td>
                                                         <?php echo $row['teach_id'] ?>
                                                     </td>
                                                     <td>
                                                         <h2 class='table-avatar'>
-                                                            <a href='teacher-details.php' class='avatar avatar-sm mr-2'><img
-                                                                    class='avatar-img rounded-circle'
-                                                                    src='assets/img/profiles/avatar-02.jpg'
-                                                                    alt='User Image'></a>
+                                                            <a href='teacher-details.php' class='avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='assets/img/profiles/avatar-02.jpg' alt='User Image'></a>
                                                             <a href='teacher-details.php'>
                                                                 <?php echo $row['fname'] ?>
                                                             </a>
@@ -104,12 +98,10 @@ $result = mysqli_query($conn, $query);
                                                     </td>
                                                     <td class='text-right'>
                                                         <div class='actions'>
-                                                            <a href='edit-teacher.php?id=<?php echo $row['id'] ?>'
-                                                                class='btn btn-sm bg-success-light mr-2'>
+                                                            <a href='edit-teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-success-light mr-2'>
                                                                 <i class='fas fa-pen'></i>
                                                             </a>
-                                                            <a href='delete_teacher.php?id=<?php echo $row['id'] ?>'
-                                                                class='btn btn-sm bg-danger-light'>
+                                                            <a href='delete_teacher.php?id=<?php echo $row['id'] ?>' class='btn btn-sm bg-danger-light'>
                                                                 <i class='fas fa-trash'></i>
                                                             </a>
                                                         </div>
