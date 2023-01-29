@@ -1,10 +1,7 @@
 <?php include 'assets/includes/db.php' ?>
-<?php 
-session_start();
-if (!isset($_SESSION['fname'])) {
-    header('location:login.php');
-} else {
-}
+<?php
+include 'assets/includes/functions.php';
+AllowUsers();
 include 'assets/includes/details.php';
 ?>
 <?php
@@ -63,7 +60,7 @@ $result = mysqli_query($conn, $query);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                                                 <tr>
                                                     <td>
                                                         <?php echo $row['stud_id'] ?>
@@ -77,20 +74,15 @@ $result = mysqli_query($conn, $query);
                                                     <td>
                                                         <?php echo $row['upload_date'] ?>
                                                     </td>
-                                                    <td class="text-center"><a style="color:white;"
-                                                            href="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf"
-                                                            download="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf"
-                                                            class="btn btn-sm bg-success mr-2">
+                                                    <td class="text-center"><a style="color:white;" href="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf" download="uploads/IMG-63cc6d2ac8e9e6.27944152.pdf" class="btn btn-sm bg-success mr-2">
                                                             <i class="fas fa-download"></i>
                                                         </a></td>
                                                     <td class="text-right">
                                                         <div class="actions">
-                                                            <a href="uploads/<?php echo $row['file'] ?>" target="_blank"
-                                                                class="btn btn-sm bg-success-light mr-2">
+                                                            <a href="uploads/<?php echo $row['file'] ?>" target="_blank" class="btn btn-sm bg-success-light mr-2">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="delete/delete-result.php?id=<?php echo $row['id'] ?>"
-                                                                class="btn btn-sm bg-danger-light">
+                                                            <a href="delete/delete-result.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>

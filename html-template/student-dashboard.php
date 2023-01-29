@@ -1,18 +1,9 @@
 <?php include 'assets/includes/db.php' ?>
 
 <?php
-session_start();
-if (!isset($_SESSION['fname'])) {
-    header('location:login.php');
-} else {
-    if ($_SESSION['acct_type'] == 'admin' || $_SESSION['acct_type'] == 'teacher') {
-        header('location:error.php');
-    }
-}
-$user_id = $_SESSION['email'];
-$fname = $_SESSION['fname'];
-$lname = $_SESSION['lname'];
-$acct_type = $_SESSION['acct_type'];
+include 'assets/includes/functions.php';
+AllowStudentOnly();
+include 'assets/includes/details.php';
 ?>
 <?php include 'assets/includes/header.php' ?>
 <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css">

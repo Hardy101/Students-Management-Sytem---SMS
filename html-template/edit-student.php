@@ -1,20 +1,9 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
-session_start();
-if (!isset($_SESSION['fname'])) {
-   header('location:login.php');
-} else {
-   if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
-      header('location:error.php');
-   }
-}
-$user_id = $_SESSION['email'];
-$fname = $_SESSION['fname'];
-$lname = $_SESSION['lname'];
-$acct_type = $_SESSION['acct_type'];
+include 'assets/includes/functions.php';
+AllowAdminOnly();
+include 'assets/includes/details.php';
 ?>
-<?php include 'assets/includes/functions.php' ?>
-<?php include 'assets/includes/header.php' ?>
 <?php
 if (isset($_GET['id'])) {
    $id = mysqli_real_escape_string($conn, $_GET['id']);
@@ -31,12 +20,13 @@ if (isset($_GET['id'])) {
 <?php if (isset($_POST['submit'])) {
    EditStudents();
 } ?>
+<?php include 'assets/includes/header.php' ?>
 <title>Preskool - Students</title>
 </head>
 
 <body>
-   <?php include 'assets/includes/nav.php' ?>
    <div class="main-wrapper">
+      <?php include 'assets/includes/nav.php' ?>
       <?php include 'assets/includes/sidenav.php' ?>
       <div class="page-wrapper">
          <div class="content container-fluid">

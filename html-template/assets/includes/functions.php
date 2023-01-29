@@ -1,4 +1,72 @@
 <?php
+function AllowAdminOnly()
+{
+    session_start();
+    if (!isset($_SESSION['fname'])) {
+        header('location:login.php');
+    } else {
+        if ($_SESSION['acct_type'] == 'student' || $_SESSION['acct_type'] == 'teacher') {
+            header('location:error.php');
+        }
+    }
+}
+function AllowTeacherOnly()
+{
+    session_start();
+    if (!isset($_SESSION['fname'])) {
+        header('location:login.php');
+    } else {
+        if ($_SESSION['acct_type'] == 'admin' || $_SESSION['acct_type'] == 'student') {
+            header('location:error.php');
+        }
+    }
+}
+function AllowStudentOnly()
+{
+    session_start();
+    if (!isset($_SESSION['fname'])) {
+        header('location:login.php');
+    } else {
+        if ($_SESSION['acct_type'] == 'admin' || $_SESSION['acct_type'] == 'teacher') {
+            header('location:error.php');
+        }
+    }
+}
+function AllowUsers()
+{
+    session_start();
+    if (!isset($_SESSION['fname'])) {
+        header('location:login.php');
+    } else {
+    }
+}
+function AllowAdminandTeacher()
+{
+    session_start();
+    if (!isset($_SESSION['fname'])) {
+        header('location:login.php');
+    } else {
+        if ($_SESSION['acct_type'] == 'student') {
+            header('location:error.php');
+        }
+    }
+}
+function AddFees()
+{
+    global $conn;
+    $name = $_POST['name'];
+    $fee_type = $_POST['fee_type'];
+    $fee_desc = $_POST['fee_desc'];
+    $amount = $_POST['amount'];
+
+    $query = "INSERT INTO fees(name, type, fee_desc, amount) ";
+    $query .= "VALUES('$name', '$fee_type', '$fee_desc', '$amount')";
+
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        header('location: fees.php');
+    }
+}
 function CreateUser()
 {
     global $conn;
@@ -103,6 +171,27 @@ function CreateTeacher()
     $result = mysqli_query($conn, $query);
     if (!$result) {
         die("Something went wrong :(");
+    }
+}
+function EditFees()
+{
+    global $id;
+    global $conn;
+    $name = $_POST['name'];
+    $fee_type = $_POST['fee_type'];
+    $fee_desc = $_POST['fee_desc'];
+    $amount = $_POST['amount'];
+
+    $query = "UPDATE fees SET ";
+    $query .= "name = '$name', ";
+    $query .= "fee_desc = '$fee_desc', ";
+    $query .= "amount = '$amount', ";
+    $query .= "type = '$fee_type' ";
+    $query .= "WHERE id = $id";
+
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        header('location: fees.php');
     }
 }
 function EditStudents()

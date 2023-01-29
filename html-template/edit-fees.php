@@ -1,16 +1,23 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
 include 'assets/includes/functions.php';
-AllowAdminandTeacher();
+AllowAdminOnly();
 include 'assets/includes/details.php';
 ?>
 <?php
+////////////////////////
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    $query = "SELECT * FROM fees WHERE id = $id";
+    $result = mysqli_query($conn, $query);
+    $result = mysqli_fetch_assoc($result);
+}
 if (isset($_POST['submit'])) {
-    CreateSubject();
+    EditFees();
 }
 ?>
 <?php include 'assets/includes/header.php' ?>
-<title>Preskool - Subject</title>
+<title>Preskool - Students</title>
 </head>
 
 <body>
@@ -18,18 +25,16 @@ if (isset($_POST['submit'])) {
     <div class="main-wrapper">
         <?php include 'assets/includes/nav.php' ?>
         <?php include 'assets/includes/sidenav.php' ?>
-
-
         <div class="page-wrapper">
             <div class="content container-fluid">
 
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Add Subject</h3>
+                            <h3 class="page-title">Edit Fees</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="subjects.php">Subject</a></li>
-                                <li class="breadcrumb-item active">Add Subject</li>
+                                <li class="breadcrumb-item"><a href="fees.html">Fees</a></li>
+                                <li class="breadcrumb-item active">Edit Fees</li>
                             </ul>
                         </div>
                     </div>
@@ -42,24 +47,39 @@ if (isset($_POST['submit'])) {
                                 <form action="" method="POST">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h5 class="form-title"><span>Subject Information</span></h5>
+                                            <h5 class="form-title"><span>Fees Information</span></h5>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Subject ID</label>
-                                                <input name="sub_id" type="text" class="form-control">
+                                                <label>Fee Name</label>
+                                                <input name="name" type="text" class="form-control" value="<?php echo $result['name'] ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Subject Name</label>
-                                                <input name="sub_name" type="text" class="form-control">
+                                                <label>Fees Type</label>
+                                                <select class="form-control" name="fee_type" required>
+                                                    <option>--Select Type--</option>
+                                                    <option value="Mandatory">Mandatory</option>
+                                                    <option value="Elective">Elective</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Class</label>
-                                                <input type="text" class="form-control">
+                                                <label>Fees Description</label>
+                                                <select class="form-control" name="fee_desc" required>
+                                                    <option>--Select Type--</option>
+                                                    <option value="School Fees">School Fees</option>
+                                                    <option value="Transport Fees">Transport Fees</option>
+                                                    <option value="Feeding">Feeding</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Fees Amount</label>
+                                                <input name="amount" type="number" class="form-control" value="<?php echo $result['amount'] ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -86,5 +106,7 @@ if (isset($_POST['submit'])) {
 
     <script src="assets/js/script.js"></script>
 </body>
+
+<!-- Mirrored from preschool.dreamguystech.com/html-template/edit-fees.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Oct 2021 11:12:21 GMT -->
 
 </html>

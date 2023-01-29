@@ -1,5 +1,8 @@
-<?php include 'assets/includes/db.php' ?>
-<?php
+<?php include 'assets/includes/db.php';
+include 'assets/includes/functions.php';
+AllowAdminandTeacher();
+include 'assets/includes/header.php';
+///////////////////////////////////
 if (isset($_POST['submit'])) {
     $stud_id = $_POST['stud_id'];
     $class_arm = $_POST['class_arm'];
@@ -12,7 +15,13 @@ if (isset($_POST['submit'])) {
     // ////////////////////////////////
     if ($error === 0) {
         if ($img_size > 1000000) {
-            echo $error_msg =  "File Size too large";
+            $error_msg =  "File Size too large";
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+               <strong>Error!</strong> $error_msg
+               <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='history.go(-1)'>
+               <span><i class='fa-solid fa-arrow-left'></i> Go Back</span>
+               </button>
+               </div>";
         } else {
             // image size else
             // Returning the format of uploaded file
@@ -32,6 +41,12 @@ if (isset($_POST['submit'])) {
                 header('location: results.php');
             } else {
                 $error_msg = "Sorry, You can't upload file of this type";
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+               <strong>Error!</strong> $error_msg
+               <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick='history.go(-1)'>
+               <span><i class='fa fa-arrow-left'></i> Go Back</span>
+               </button>
+               </div>";
             }
         }
     } else {

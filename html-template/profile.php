@@ -1,23 +1,14 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
-session_start();
-if (!isset($_SESSION['fname'])) {
-   header('location:login.php');
-} else {
-}
-$user_id = $_SESSION['id'];
-$user_email = $_SESSION['email'];
-$fname = $_SESSION['fname'];
-$lname = $_SESSION['lname'];
-$acct_type = $_SESSION['acct_type'];
-$class_arm = $_SESSION['class_arm'];
+include 'assets/includes/functions.php';
+AllowUsers();
+include 'assets/includes/details.php';
 ?>
 <?php
 // SELECTING INFORMATION TO DISPLAY SEPCIFIC TO ACCOUNT LOGGED IN
-
 if ($acct_type == 'student') {
    $query = "SELECT * FROM students ";
-   $query .= "WHERE stud_id = '$user_id'"; 
+   $query .= "WHERE stud_id = '$user_id'";
 } else if ($acct_type == 'admin') {
    $query = "SELECT * FROM admin ";
    $query .= "WHERE id = 1";

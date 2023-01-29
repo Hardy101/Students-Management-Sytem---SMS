@@ -1,14 +1,7 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
-session_start();
-if (!isset($_SESSION['fname'])) {
-   header('location:login.php');
-} else {
-   if ($_SESSION['acct_type'] == 'student') {
-      header('location:error.php');
-   }
-}
-
+include 'assets/includes/functions.php';
+AllowAdminandTeacher();
 include 'assets/includes/details.php';
 
 if ($acct_type == 'teacher') {

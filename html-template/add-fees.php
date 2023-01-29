@@ -1,16 +1,18 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
 include 'assets/includes/functions.php';
-AllowAdminandTeacher();
+AllowAdminOnly();
 include 'assets/includes/details.php';
 ?>
 <?php
+
 if (isset($_POST['submit'])) {
-    CreateSubject();
+    AddFees();
 }
 ?>
 <?php include 'assets/includes/header.php' ?>
-<title>Preskool - Subject</title>
+<title>Preskool - Add Fees</title>
+
 </head>
 
 <body>
@@ -18,18 +20,16 @@ if (isset($_POST['submit'])) {
     <div class="main-wrapper">
         <?php include 'assets/includes/nav.php' ?>
         <?php include 'assets/includes/sidenav.php' ?>
-
-
         <div class="page-wrapper">
             <div class="content container-fluid">
 
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Add Subject</h3>
+                            <h3 class="page-title">Add Fees</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="subjects.php">Subject</a></li>
-                                <li class="breadcrumb-item active">Add Subject</li>
+                                <li class="breadcrumb-item"><a href="fees.php">Fees</a></li>
+                                <li class="breadcrumb-item active">Add Fees</li>
                             </ul>
                         </div>
                     </div>
@@ -42,24 +42,39 @@ if (isset($_POST['submit'])) {
                                 <form action="" method="POST">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h5 class="form-title"><span>Subject Information</span></h5>
+                                            <h5 class="form-title"><span>Fees Information</span></h5>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Subject ID</label>
-                                                <input name="sub_id" type="text" class="form-control">
+                                                <label>Fee Name</label>
+                                                <input name="name" type="text" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Subject Name</label>
-                                                <input name="sub_name" type="text" class="form-control">
+                                                <label>Fees Type</label>
+                                                <select class="form-control" name="fee_type" required>
+                                                    <option>--Select Type--</option>
+                                                    <option value="Mandatory">Mandatory</option>
+                                                    <option value="Elective">Elective</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
-                                                <label>Class</label>
-                                                <input type="text" class="form-control">
+                                                <label>Fees Description</label>
+                                                <select class="form-control" name="fee_desc" required>
+                                                    <option>--Select Type--</option>
+                                                    <option value="School Fees">School Fees</option>
+                                                    <option value="Transport Fees">Transport Fees</option>
+                                                    <option value="Feeding">Feeding</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Fees Amount</label>
+                                                <input name="amount" type="number" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-12">

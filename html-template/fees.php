@@ -1,19 +1,16 @@
 <?php include 'assets/includes/db.php' ?>
 <?php
-session_start();
-if (!isset($_SESSION['fname'])) {
-    header('location:login.php');
-} else {
-}
-include 'assets/includes/details.php';
+include 'assets/includes/functions.php';
+AllowUsers();
+include 'assets/includes/details.php'; 
 ?>
 <?php
-$query = "SELECT * FROM fees ";
+$query = "SELECT * FROM fees";
 $result = mysqli_query($conn, $query);
 ?>
 <?php include 'assets/includes/header.php' ?>
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
-<title>Preskool - Results</title>
+<title>Preskool - Fees</title>
 </head>
 
 <body>
@@ -52,7 +49,7 @@ $result = mysqli_query($conn, $query);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                                            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                                                 <tr>
                                                     <td>
                                                         <?php echo $row['name'] ?>
@@ -60,15 +57,13 @@ $result = mysqli_query($conn, $query);
                                                     <td>
                                                         <?php echo $row['fee_desc'] ?>
                                                     </td>
-                                                    <td class="text-center">$300</td>
+                                                    <td class="text-center">$<?php echo $row['amount'] ?></td>
                                                     <td class="text-right">
                                                         <div class="actions">
-                                                            <a href="edit-fees.php"
-                                                                class="btn btn-sm bg-success-light mr-2">
+                                                            <a href="edit-fees.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-success-light mr-2">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
-                                                            <a href="delete/delete-fees.php?id=<?php echo $row['id'] ?>"
-                                                                class="btn btn-sm bg-danger-light">
+                                                            <a href="delete/delete_fees.php?id=<?php echo $row['id'] ?>" class="btn btn-sm bg-danger-light">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>
