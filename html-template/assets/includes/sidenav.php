@@ -65,7 +65,7 @@
                 <li class="menu-title">
                 </li>
                 <li>
-                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
+                    <a href="holiday.php"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
                 </li>
                 <?php
                 if ($acct_type == 'admin') {

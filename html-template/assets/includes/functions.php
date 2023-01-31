@@ -1,4 +1,5 @@
 <?php
+// ACCOUNT PERMISSION
 function AllowAdminOnly()
 {
     session_start();
@@ -51,6 +52,7 @@ function AllowAdminandTeacher()
         }
     }
 }
+////////////////////////////////////
 function AddFees()
 {
     global $conn;
@@ -65,6 +67,22 @@ function AddFees()
     $result = mysqli_query($conn, $query);
     if ($result) {
         header('location: fees.php');
+    }
+}
+function AddHoliday()
+{
+    global $conn;
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+
+    $query = "INSERT INTO holidays(name, type, start_date, end_date) ";
+    $query .= "VALUES('$name', '$type', '$start_date', '$end_date')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        header("Location: holiday.php");
     }
 }
 function CreateUser()
@@ -193,6 +211,24 @@ function EditFees()
     if ($result) {
         header('location: fees.php');
     }
+}
+function EditHoliday()
+{
+    global $id;
+    global $conn;
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+
+    $query = "UPDATE holidays SET ";
+    $query .= "name = '$name', ";
+    $query .= "type = '$type', ";
+    $query .= "start_date = '$start_date', ";
+    $query .= "end_date = '$end_date' ";
+    $query .= "WHERE id = $id";
+
+    $result = mysqli_query($conn, $query);
 }
 function EditStudents()
 {
