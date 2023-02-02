@@ -220,11 +220,17 @@ function EditExam()
     $date = $_POST['date'];
 
     $query = "UPDATE exam SET ";
-    $query .= "name = '$name'";
-    $query .= "subject = '$subject'";
-    $query .= "start_date = '$start_date'";
-    $query .= "";
-    $query .= "";
+    $query .= "name = '$name', ";
+    $query .= "subject = '$subject', ";
+    $query .= "start_time = '$start_time', ";
+    $query .= "end_time = '$end_time', ";
+    $query .= "date = '$date' ";
+    $query .= "WHERE id = $id ";
+
+    $result = mysqli_query($conn, $query);
+    if($result) {
+        header('Location: exam.php');
+    }
 }
 function EditFees()
 {
