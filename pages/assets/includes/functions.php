@@ -222,7 +222,7 @@ function EditExam()
     $query = "UPDATE exam SET ";
     $query .= "name = '$name'";
     $query .= "subject = '$subject'";
-    $query .= "";
+    $query .= "start_date = '$start_date'";
     $query .= "";
     $query .= "";
 }
@@ -352,4 +352,6 @@ function deleteStudent()
 
     $result = mysqli_query($conn, $query);
     if ($result) {
-        header('location: stu
+        header('location: students.php');
+    }
+}
